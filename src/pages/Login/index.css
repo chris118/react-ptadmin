@@ -1,6 +1,16 @@
-.vertical-center-col {
-  transform: translateY(50%);
+.center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
 }
-.btn-primary {
+.login-form {
+  width: 300px;
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
   width: 100%;
 }

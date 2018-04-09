@@ -8,6 +8,6 @@ export const routers = (
     <Switch>
         <Route exact path='/' component={authHOC(Home)}/>
         <Route path='/home' component={authHOC(Home)}/>
-        <Route path='/login' component={Login}/>
+        <Route path='/login' component={authHOC(Login)}/>
     </Switch>
 );

@@ -5,10 +5,18 @@ export default function author(WrappedComponent) {
   class AuthInterceptor extends Component {
 
     componentWillMount() {
-      console.log(window.localStorage.getItem("uid"));
       const isLoggedIn = !!window.localStorage.getItem("pt-uid");
-      if (!isLoggedIn) {
-        this.props.history.replace('/login');
+
+      const {history} = this.props
+
+      //未登陆 跳转到登陆页
+      if (!isLoggedIn && this.props.location.pathname !== "/login") {
+        history.replace('/login');
+      }
+
+      //拦截地址栏直接输入login
+      if(isLoggedIn && this.props.location.pathname === '/login'){
+        history.replace('/home');
       }
     }
 

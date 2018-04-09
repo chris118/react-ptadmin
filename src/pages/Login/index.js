@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import qs from 'qs';
-import {
-  Grid,
-  Row,
-  Button,
-  Form,
-  FormControl,
-  FormGroup,
-  Col,
-  ControlLabel,
-  Checkbox} from 'react-bootstrap';
+import { Form, Icon, Input, Button, Checkbox, Alert } from 'antd';
 
 import './index.css';
+
+const FormItem = Form.Item;
 
 class Login extends Component {
   constructor(props) {
@@ -21,12 +14,10 @@ class Login extends Component {
       name: '',
       password: ''
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange = (event) => {
+    event.preventDefault();
     const target = event.target;
     const name = target.name;
 
@@ -35,98 +26,94 @@ class Login extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
-    // 添加请求拦截器
-    axios.interceptors.request.use(function (config) {
-      // 在发送请求之前做些什么
-      console.log('在发送请求之前做些什么');
-      // config.headers = {
-      //   'Content-Type': 'application/x-www-from-urlencoded'
-      // }
+    this.props.form.validateFields((err, values) => {
+      if (!err) { //校验通过
+        // 添加请求拦截器
+        axios.interceptors.request.use(function (config) {
+          config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+          if(config.method === 'post') {
+            config.data = qs.stringify( {
+              ...config.data
+            })
+          }
+          return config;
+        }, function (error) {
+          return Promise.reject(error);
+        });
 
-      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-      if(config.method === 'post') {
-        config.data = qs.stringify( {
-          ...config.data
+
+        const _this=this;
+        axios.post('http://127.0.0.1:4000/api/login',{
+          name: values.username,
+          password: values.password
         })
+        .then(function(res){
+          if(res.status === 200 && res.data.code === 200){
+            if(!!res.data.data.uid){
+              window.localStorage['pt-uid'] = res.data.data.uid;
+              _this.props.history.replace('/home');
+            }else {
+              //提示错误
+            }
+          }
+        })
+        .catch(function(error){
+          console.log(error);
+        });
       }
-      console.log(config.data);
-      return config;
-    }, function (error) {
-      // 对请求错误做些什么
-      return Promise.reject(error);
-    });
-
-
-    axios.post('http://127.0.0.1:4000/api/login',{
-      name: this.state.name,
-      password: this.state.password
-    })
-    .then(function(res){
-      console.log(res);
-    })
-    .catch(function(error){
-      console.log(error);
     });
   }
 
   render() {
+    const { getFieldDecorator } = this.props.form;
     return (
-      <Grid className="container-fluid">
-        <Row>
-          <Col md={4}/>
-          <Col md={4} className="vertical-center-col" >
-            <Form horizontal onSubmit={this.handleSubmit}>
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} md={12}>
-                  账户
-                </Col>
-                <Col md={12}>
-                  <FormControl
-                    name="name"
-                    value={this.state.name}
-                    type="text"
-                    placeholder="Account"
-                    onChange={this.handleInputChange}/>
-                </Col>
-              </FormGroup>
+      <div className="center-div">
+        <Form onSubmit={this.handleSubmit} className="login-form">
+          <FormItem>
+            {getFieldDecorator('username', {
+              rules: [{ required: true, message: '用户名不能为空!' }],
+            })(
+              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                     placeholder="用户名"
+                     name="username"
+                     />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('password', {
+              rules: [{ required: true, message: '密码不能为空!' }],
+            })(
+              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                     type="password"
+                     placeholder="密码"
+                     name="password"
+                     />
+            )}
+          </FormItem>
+          <FormItem>
+            {/*{getFieldDecorator('remember', {*/}
+              {/*valuePropName: 'checked',*/}
+              {/*initialValue: true,*/}
+            {/*})(*/}
+              {/*<Checkbox>Remember me</Checkbox>*/}
+            {/*)}*/}
+            {/*<a className="login-form-forgot" href="">Forgot password</a>*/}
 
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} md={12}>
-                  密码
-                </Col>
-                <Col md={12}>
-                  <FormControl
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleInputChange}/>
-                </Col>
-              </FormGroup>
+            {/*<Alert type="error" message="Error text" />*/}
 
-              <FormGroup>
-                <Col mdOffset={2} md={12}>
-                  <Checkbox> 记住我</Checkbox>
-                </Col>
-              </FormGroup>
+            <Button type="primary" htmlType="submit" className="login-form-button">
+              Log in
+            </Button>
+            {/*<a href="">register now!</a>*/}
 
-              <FormGroup>
-                <Col mdOffset={2} md={12}>
-                  <Button bsStyle="primary" type="submit">
-                    登录
-                  </Button>
-                </Col>
-              </FormGroup>
-            </Form>
-          </Col>
-          <Col md={4}/>
-        </Row>
-      </Grid>
+          </FormItem>
+        </Form>
+      </div>
     );
   }
 }
 
-export default Login;
+export default Form.create()(Login);
