@@ -16,7 +16,7 @@ export default function author(WrappedComponent) {
 
       //拦截地址栏直接输入login
       if(isLoggedIn && this.props.location.pathname === '/login'){
-        history.replace('/home');
+        history.replace('/');
       }
     }
 
