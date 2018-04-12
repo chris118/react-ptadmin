@@ -3,7 +3,7 @@ import {Route, Switch } from 'react-router-dom';
 import Home from '../pages/Layout/index';
 import Login from '../pages/Login';
 import Layout from '../pages/Layout';
-import authHOC from '../components/authHOC'
+import authHOC from '../components/AuthHOC'
 
 export const routers = (
     <Switch>

@@ -1,33 +1,27 @@
 import React, {Component} from 'react';
-import {Layout, Menu, Breadcrumb, Icon, Row, Col} from 'antd';
 import './index.css';
 
+import { connect } from 'react-redux'
+import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import Header from '../../components/Header'
+
 const {SubMenu} = Menu;
-const {Header, Content, Sider, Footer} = Layout;
+const {Content, Sider, Footer} = Layout;
 
 class RootLayout extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      collapsed: false,
-    };
-  }
-
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
   }
 
   render() {
     // 根据collapsed状态设置logo大小
-    var logoStyle = this.state.collapsed ? {width: '60px'} : {width: '120px'}
+    var logoStyle = this.props.collapsed ? {width: '60px'} : {width: '120px'}
     return (
       <Layout style={{height: '100%'}}>
         <Sider
           trigger={null}
           collapsible
-          collapsed={this.state.collapsed}
+          collapsed={this.props.collapsed}
         >
           <div className="logo" style={logoStyle}>
             logo
@@ -63,20 +57,7 @@ class RootLayout extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{background: '#fff', padding: 0, display: 'flex'}}>
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
-            />
-            <Row type="flex" justify="end" align="middle" style={{width: '100%', padding: '0px 20px 0px'}}>
-              <Col>
-                <a href="/login">
-                  登出
-                </a>
-              </Col>
-            </Row>
-          </Header>
+          <Header/>
           <Content style={{margin: '0 16px'}}>
             <Breadcrumb style={{margin: '16px 0'}}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
@@ -96,4 +77,11 @@ class RootLayout extends Component {
   }
 }
 
-export default RootLayout;
+const mapStateToProps = (state) => {
+  console.log(state) // state === reducer
+  return {
+    collapsed: state.header.collapsed, //collapsed属性由Header子组件的Action出发改变
+  };
+};
+
+export default connect(mapStateToProps)(RootLayout);
