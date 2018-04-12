@@ -1,2 +1,1 @@
 export const HEADER_SIDER_TOOGGLE = 'SIDER_TOOGGLE';
-export const HEADER_LOGOUT = 'LOGOUT';

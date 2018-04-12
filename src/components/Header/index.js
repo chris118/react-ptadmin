@@ -3,8 +3,10 @@ import './index.css';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import {withRouter} from "react-router-dom";
 import {Layout, Icon, Row, Col} from 'antd';
-import {toggleSider, logout} from '../../actions/header'
+import {toggleSider} from '../../actions/header'
+import {KEY_UID} from '../../utils/constants'
 
 const {Header} = Layout;
 
@@ -27,9 +29,9 @@ class PTHeader extends Component {
   }
 
   logout = () => {
-    // 由 react-redux 注入：
-    let { logoutAction } = this.props;
-    logoutAction(true)
+    const {history} = this.props
+    window.localStorage.removeItem(KEY_UID);
+    history.replace('/login');
   }
 
   render() {
@@ -58,8 +60,7 @@ function mapDispatchToProps(dispatch) {
   // 不需要store.dispatch, 解耦store
   return {
     toggleSiderAction: bindActionCreators(toggleSider, dispatch),
-    logoutAction: bindActionCreators(logout, dispatch)
   }
 }
 
-export default connect(null, mapDispatchToProps)(PTHeader);
+export default withRouter(connect(null, mapDispatchToProps)(PTHeader));

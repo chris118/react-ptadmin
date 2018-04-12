@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Form, Icon, Input, Button} from 'antd';
 import {Post} from '../../service'
 import {message} from 'antd';
-
+import {KEY_UID} from '../../utils/constants'
 import './index.css';
 
 const FormItem = Form.Item;
@@ -32,6 +32,11 @@ class Login extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) { //校验通过
 
+        window.localStorage[KEY_UID] = 10000;
+        this.props.history.replace('/');
+
+        return
+
         const _this = this;
         Post('/login', {
           name: values.username,
@@ -41,7 +46,7 @@ class Login extends Component {
             console.log(res);
             if (res.code === 200) {
               if (!!res.data.uid) {
-                window.localStorage['pt-uid'] = res.data.uid;
+                window.localStorage[KEY_UID] = res.data.uid;
                 _this.props.history.replace('/');
               } else {
                 //提示错误

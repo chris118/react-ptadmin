@@ -9,10 +9,6 @@ const {SubMenu} = Menu;
 const {Content, Sider, Footer} = Layout;
 
 class RootLayout extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     // 根据collapsed状态设置logo大小
     var logoStyle = this.props.collapsed ? {width: '60px'} : {width: '120px'}
@@ -78,7 +74,7 @@ class RootLayout extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state) // state === reducer
+  // console.log(state) // state === reducer
   return {
     collapsed: state.header.collapsed, //collapsed属性由Header子组件的Action出发改变
   };
