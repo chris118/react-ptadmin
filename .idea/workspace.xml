@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63d147ce-fca7-4be7-8311-a8b5540f0558" name="Default" comment="implement redux connect (action and props)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/logo.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/SiderBar/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/SiderBar/index.less" />
+    <list default="true" id="63d147ce-fca7-4be7-8311-a8b5540f0558" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/SiderBar/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.js" afterPath="$PROJECT_DIR$/src/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Header/index.js" afterPath="$PROJECT_DIR$/src/components/Header/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Home/index.js" afterPath="$PROJECT_DIR$/src/pages/Home/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Layout/index.js" afterPath="$PROJECT_DIR$/src/pages/Layout/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -293,7 +284,7 @@
       <workItem from="1523340196968" duration="149000" />
       <workItem from="1523353847105" duration="29927000" />
       <workItem from="1523935632714" duration="1296000" />
-      <workItem from="1524743926276" duration="779000" />
+      <workItem from="1524743926276" duration="822000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1523278618337</created>
@@ -323,11 +314,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523500662670</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updat">
+      <created>1524745199693</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1524745199694</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92919000" />
+    <option name="totallyTimeSpent" value="92962000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="23" width="1375" height="837" extended-state="0" />
@@ -362,7 +360,8 @@
     <MESSAGE value="update" />
     <MESSAGE value="add root layout" />
     <MESSAGE value="implement redux connect (action and props)" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement redux connect (action and props)" />
+    <MESSAGE value="updat" />
+    <option name="LAST_COMMIT_MESSAGE" value="updat" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
