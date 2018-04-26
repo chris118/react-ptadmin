@@ -4,7 +4,7 @@ import './index.css';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {withRouter} from "react-router-dom";
-import {Layout, Icon, Row, Col} from 'antd';
+import {Layout, Icon, Row, Col, Avatar, Dropdown, Menu} from 'antd';
 import {toggleSider} from '../../actions/header'
 import {KEY_UID} from '../../utils/constants'
 
@@ -42,11 +42,22 @@ class PTHeader extends Component {
           type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={this.toggle}
         />
-        <Row type="flex" justify="end" align="middle" style={{width: '100%', padding: '0px 20px 0px'}}>
+        <Row type="flex" justify="end" align="middle" style={{width: '100%', padding: '0px 50px 0px'}}>
           <Col>
-            <a onClick={this.logout}>
-              登出
-            </a>
+            <Dropdown overlay={
+              <Menu>
+                <Menu.Item>
+                  <a>设置</a>
+                  <a onClick={this.logout}>注销</a>
+                </Menu.Item>
+              </Menu>
+            }>
+              <a className="ant-dropdown-link" href="#">
+                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                        style={{ backgroundColor: '#1DA57A' }}
+                        icon="user" />
+              </a>
+            </Dropdown>
           </Col>
         </Row>
       </Header>
